@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         navigationView = findViewById(R.id.bottomNavigationView);
         navigationView.setOnNavigationItemSelectedListener(this);
 
-        Retrofit retrofit = new Retrofit.Builder()
+        /*Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://www.thecocktaildb.com/api/json/v1/1/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build(); //Toujours la même structure
@@ -98,7 +98,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             public void onFailure(Call<Drinks> call, Throwable t) { //Appel si l'appel fail
                 System.out.println("Fail !");
             }
-        });
+        });*/
+
+
+
 
     }
 
