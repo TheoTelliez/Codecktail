@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/action_random"
+        android:title="@string/menu_random"
+        android:icon="@drawable/ic_menu_random"
+        android:background="@color/white"
+        />
+    <item android:id="@+id/action_list"
+        android:title="@string/menu_list"
+        android:icon="@drawable/ic_menu_list"/>
+    <item android:id="@+id/action_search"
+        android:title="@string/menu_search"
+        android:icon="@drawable/ic_menu_search"/>
+</menu>
