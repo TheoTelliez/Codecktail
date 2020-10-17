@@ -333,9 +333,6 @@ public class Todo {
         this.strMeasure8 = strMeasure8;
     }
 
-
-
-
     //strCreativeCommonsConfirmed
     public String getStrCreativeCommonsConfirmed() {
         return strCreativeCommonsConfirmed;
@@ -353,11 +350,6 @@ public class Todo {
     public void setDateModified() {
         this.dateModified = dateModified;
     }
-
-
-
-
-
 
 
 

@@ -1,22 +1,15 @@
 package com.example.appcourstrois;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.squareup.picasso.Picasso;
-
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -24,13 +17,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-
 public class RandomFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
 
         //C'est parti pour le random:
 
@@ -110,26 +101,20 @@ public class RandomFragment extends Fragment {
                 System.out.println("nom : " + drinks.getTodo().get(0).getStrDrink() + " alcoholic : " + drinks.getTodo().get(0).getStrAlcoholic() + " ingrédient 1 : " + drinks.getTodo().get(0).getStrIngredient1() + " ingrédient 2 : " + drinks.getTodo().get(0).getStrIngredient2() + " ingrédient 3 : " + drinks.getTodo().get(0).getStrIngredient3() + " ingrédient 4 : " + drinks.getTodo().get(0).getStrIngredient4() + " mesure 1 : " + drinks.getTodo().get(0).getStrMeasure1() + " mesure 2 : " + drinks.getTodo().get(0).getStrMeasure2() + " mesure 3 : " + drinks.getTodo().get(0).getStrMeasure3() + " mesure 4 : " + drinks.getTodo().get(0).getStrMeasure4() + " instruction : " + drinks.getTodo().get(0).getStrInstructions());
 
                 detail_cocktail_title.setText(drinks.getTodo().get(0).getStrDrink());
-                //Set variables en vue
                 detail_cocktail_title.setText(response.body().getTodo().get(0).getStrDrink());
+                detail_glass_text.setText(response.body().getTodo().get(0).getStrGlass());
+                detail_instructions_text.setText(response.body().getTodo().get(0).getStrInstructions());
+                detail_category.setText(response.body().getTodo().get(0).getStrCategory());
+
+                Picasso.get().load(response.body().getTodo().get(0).getStrDrinkThumb()).into(detail_cocktail_image);
 
                 if (response.body().getTodo().get(0).getStrAlcoholic().equals("Non alcoholic")){ //Def vert ou rouge en fonction de alcoholic
                     detail_alcoholic_text.setTextColor(getResources().getColor(R.color.green));
                     detail_alcoholic_text.setText("✓ " + response.body().getTodo().get(0).getStrAlcoholic());
-                    //detail_alcoholic_text.setText("Good" + response.body().getTodo().get(0).getStrAlcoholic());
                 }else {
                     detail_alcoholic_text.setTextColor(getResources().getColor(R.color.red));
                     detail_alcoholic_text.setText("⚠ " + response.body().getTodo().get(0).getStrAlcoholic());
-                    //detail_alcoholic_text.setText("Pas good" + response.body().getTodo().get(0).getStrAlcoholic());
                 }
-
-
-                detail_glass_text.setText(response.body().getTodo().get(0).getStrGlass());
-
-                detail_instructions_text.setText(response.body().getTodo().get(0).getStrInstructions());
-
-                Picasso.get().load(response.body().getTodo().get(0).getStrDrinkThumb()).into(detail_cocktail_image);
-
 
                 detail_ingredient_1.setText(response.body().getTodo().get(0).getStrIngredient1());
                 detail_ingredient_2.setText(response.body().getTodo().get(0).getStrIngredient2());
@@ -183,12 +168,6 @@ public class RandomFragment extends Fragment {
                     mesure_ingredient_8.setVisibility(View.INVISIBLE);
                 }
 
-                detail_category.setText(response.body().getTodo().get(0).getStrCategory());
-
-
-
-
-
             }
 
             @Override
@@ -198,11 +177,6 @@ public class RandomFragment extends Fragment {
         });
         return view;
     }
-
-
-
-
-
 
 
 
