@@ -73,12 +73,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 detail_instructions_text = findViewById(R.id.detail_instructions_text);
                 detail_cocktail_image = findViewById(R.id.detail_cocktail_image);
 
+
                 //Set variables en vue
                 detail_cocktail_title.setText(response.body().getTodo().get(0).getStrDrink());
 
                 detail_alcoholic_text.setText(response.body().getTodo().get(0).getStrAlcoholic());
 
-                if (response.body().getTodo().get(0).getStrAlcoholic().equals("Non alcoholic")){
+                if (response.body().getTodo().get(0).getStrAlcoholic().equals("Non alcoholic")){ //Def vert ou rouge en fonction de alcoholic
                     detail_alcoholic_text.setTextColor(getResources().getColor(R.color.green));
                 }else {
                     detail_alcoholic_text.setTextColor(getResources().getColor(R.color.red));
