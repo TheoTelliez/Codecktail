@@ -28,12 +28,36 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/categoryName"
+            android:id="@+id/nameListTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="Category Name" />
+            android:layout_alignParentEnd="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginEnd="148dp"
+            android:text="nameListTextView" />
+
+        <ImageView
+            android:id="@+id/thumbsCellImageView"
+            android:layout_width="163dp"
+            android:layout_height="174dp"
+            app:srcCompat="@drawable/cocktail" />
+
+        <TextView
+            android:id="@+id/typeListTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="296dp"
+            android:text="nameListTextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/relativeLayout"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </RelativeLayout>
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
