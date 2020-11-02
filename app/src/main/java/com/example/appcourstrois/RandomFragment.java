@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
 import com.squareup.picasso.Picasso;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -48,7 +49,7 @@ public class RandomFragment extends Fragment {
 
 
         //On déclare les valeurs
-        detail_cocktail_title = view.findViewById(R.id.detail_cocktail_title);
+        detail_cocktail_title = view.findViewById(R.id.cocktailName);
         detail_alcoholic_text = view.findViewById(R.id.detail_alcoholic_text);
         detail_glass_text = view.findViewById(R.id.detail_glass_text);
         detail_instructions_text = view.findViewById(R.id.detail_instructions_text);
