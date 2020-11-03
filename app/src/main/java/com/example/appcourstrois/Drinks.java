@@ -19,6 +19,19 @@ public class Drinks {
     }
 
 
+    @Expose
+    private List<TodoCategory> todoList = null;
+
+    public List<TodoCategory> getListDrinksByCategory() {
+        return todoList;
+    }
+
+    public void setListDrinksByCategory(List<TodoCategory> todoList) {
+        this.todoList = todoList;
+    }
+
+
+
 
 
 
