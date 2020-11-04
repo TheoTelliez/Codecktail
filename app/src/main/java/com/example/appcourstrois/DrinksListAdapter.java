@@ -11,13 +11,13 @@ import java.util.List;
 
 public class DrinksListAdapter extends RecyclerView.Adapter<DrinksListAdapter.ViewHolder> {
 
-    List<Drinks> itemList;
+   Drinks drink;
 
-    public DrinksListAdapter(List<Drinks> itemList) {
 
-        this.itemList = itemList;
+   public DrinksListAdapter(Drinks drink){
+       this.drink = drink;
 
-    }
+   }
 
     @NonNull
     @Override
@@ -29,17 +29,16 @@ public class DrinksListAdapter extends RecyclerView.Adapter<DrinksListAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull DrinksListAdapter.ViewHolder holder, int position) {
-
-        //holder.categoryNameCell.setText(itemList.get(position).getStrCategory());
+        holder.categoryNameCell.setText(drink.getTodo().get(position).getStrCategory());
 
     }
 
     @Override
     public int getItemCount() {
-        return itemList.size();
+        return drink.getTodo().size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder { //category view holer a faire
 
         TextView categoryNameCell;
 
