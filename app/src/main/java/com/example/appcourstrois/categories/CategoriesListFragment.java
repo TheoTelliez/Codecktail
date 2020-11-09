@@ -1,5 +1,6 @@
-package com.example.appcourstrois;
+package com.example.appcourstrois.categories;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,17 +10,25 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.appcourstrois.cocktailslist.CocktailsListFragment;
+import com.example.appcourstrois.MainActivity;
+import com.example.appcourstrois.R;
+import com.example.appcourstrois.model.Todo;
+import com.example.appcourstrois.model.Drinks;
+import com.example.appcourstrois.webservices.WebServicesInterface;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ListFragment extends Fragment {
+public class CategoriesListFragment extends Fragment implements CategoriesListClickListener {
 
     private RecyclerView categoryListRecyclerView;
     private RecyclerView.Adapter drinksListAdapter;
-    private RecyclerView.LayoutManager categoryUserListLayoutManager;
+    private RecyclerView.LayoutManager categoryListLayoutManager;
 
 
     @Nullable
@@ -30,15 +39,15 @@ public class ListFragment extends Fragment {
 
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
 
 
         super.onViewCreated(view, savedInstanceState);
         categoryListRecyclerView = view.findViewById(R.id.categoryListRecyclerView);
 
         categoryListRecyclerView.setHasFixedSize(true);
-        categoryUserListLayoutManager = new LinearLayoutManager(getContext());
-        categoryListRecyclerView.setLayoutManager(categoryUserListLayoutManager);
+        categoryListLayoutManager = new LinearLayoutManager(getContext());
+        categoryListRecyclerView.setLayoutManager(categoryListLayoutManager);
 
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -54,9 +63,7 @@ public class ListFragment extends Fragment {
             @Override
             public void onResponse(Call<Drinks> call, Response<Drinks> response) {
 
-                //categoryNameCell.setText(response.body().getTodoCat().get(0).getStrCategory()); //Fait dans l'adapter
-
-                drinksListAdapter = new DrinksListAdapter(response.body());
+                drinksListAdapter = new CategoriesListAdapter(response.body(), (MainActivity)getActivity()); //Ici c'est tricky :(
                 categoryListRecyclerView.setAdapter(drinksListAdapter);
 
             }
@@ -69,12 +76,24 @@ public class ListFragment extends Fragment {
 
 
 
-
-
-
-
-
     };
+
+    @Override
+    public void onCategoryListClick(Todo todo) {
+
+        //Tout ça c'est plus actif parce que c'est dans le mainacivity
+        System.out.println(todo.getStrCategory());
+        Intent drinkDetailListingActivityIntent = new Intent(getActivity(), CocktailsListFragment.class);
+
+        String s = todo.getStrCategory();
+
+        drinkDetailListingActivityIntent.putExtra("nameDuStrCategory", s);
+
+        //Et tac on démarre l'activity
+        startActivity(drinkDetailListingActivityIntent);
+
+    }
+
 
 }
 

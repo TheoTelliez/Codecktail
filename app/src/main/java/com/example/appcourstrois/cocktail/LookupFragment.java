@@ -1,4 +1,4 @@
-package com.example.appcourstrois;
+package com.example.appcourstrois.cocktail;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -6,11 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.appcourstrois.R;
+import com.example.appcourstrois.model.Drinks;
+import com.example.appcourstrois.webservices.WebServicesInterface;
 import com.squareup.picasso.Picasso;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -18,13 +23,20 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class RandomFragment extends Fragment {
+public class LookupFragment extends Fragment {
+
+    private int idDrink;
+
+    public LookupFragment(int idDrink) { //Constructeur pour récupérer la valeur du getIdDrink ex 17105
+        this.idDrink = idDrink;
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        //C'est parti pour le random:
+
+        //C'est parti pour le lookup:
 
         View view = inflater.inflate(R.layout.fragment_random, container, false);
 
@@ -93,9 +105,11 @@ public class RandomFragment extends Fragment {
 
         WebServicesInterface webServicesInterface = retrofit.create(WebServicesInterface.class);
 
-        Call<Drinks> callGetTodoByRandom = webServicesInterface.getTodoByRandom();
+        Call<Drinks> callGetTodoById = webServicesInterface.getTodoById(String.valueOf(this.idDrink));
 
-        callGetTodoByRandom.enqueue(new Callback<Drinks>() {
+        //Call<Drinks> callGetTodoById = webServicesInterface.getTodoById("17105");
+
+        callGetTodoById.enqueue(new Callback<Drinks>() {
             @Override
             public void onResponse(Call<Drinks> call, Response<Drinks> response) {
                 final Drinks drinks = response.body();

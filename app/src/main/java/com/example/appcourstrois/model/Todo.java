@@ -1,4 +1,4 @@
-package com.example.appcourstrois;
+package com.example.appcourstrois.model;
 
 
 import com.google.gson.annotations.Expose;

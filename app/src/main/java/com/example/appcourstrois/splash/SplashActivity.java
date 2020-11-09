@@ -1,4 +1,4 @@
-package com.example.appcourstrois;
+package com.example.appcourstrois.splash;
 
 import android.content.Intent;
 import android.os.Build;
@@ -8,6 +8,9 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.appcourstrois.MainActivity;
+import com.example.appcourstrois.R;
 
 public class SplashActivity extends AppCompatActivity {
 
