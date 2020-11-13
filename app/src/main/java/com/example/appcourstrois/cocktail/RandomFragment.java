@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -14,6 +15,7 @@ import com.example.appcourstrois.R;
 import com.example.appcourstrois.model.Drinks;
 import com.example.appcourstrois.webservices.WebServicesInterface;
 import com.squareup.picasso.Picasso;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -26,8 +28,6 @@ public class RandomFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        //C'est parti pour le random:
 
         View view = inflater.inflate(R.layout.fragment_random, container, false);
 
@@ -42,14 +42,9 @@ public class RandomFragment extends Fragment {
                 mesure_ingredient_1, mesure_ingredient_2, mesure_ingredient_3, mesure_ingredient_4,
                 mesure_ingredient_5, mesure_ingredient_6, mesure_ingredient_7, mesure_ingredient_8,
 
-                detail_category
-
-        ; //Max 8 car il n'y jamais + de 8 ingrédients dans le json (et si c'est le cas un jour beh faudra se débrouiller et inventer une nouvelle recette par soi même --"
-
+                detail_category;
 
         final ImageView detail_cocktail_image;
-        //final LinearLayout detail_ingredients_list;
-
 
         //On déclare les valeurs
         detail_cocktail_title = view.findViewById(R.id.cocktailName);
@@ -57,7 +52,6 @@ public class RandomFragment extends Fragment {
         detail_glass_text = view.findViewById(R.id.detail_glass_text);
         detail_instructions_text = view.findViewById(R.id.detail_instructions_text);
         detail_cocktail_image = view.findViewById(R.id.detail_cocktail_image);
-
 
         detail_ingredient_1 = view.findViewById(R.id.detail_ingredient_1);
         detail_ingredient_2 = view.findViewById(R.id.detail_ingredient_2);
@@ -88,7 +82,6 @@ public class RandomFragment extends Fragment {
 
         detail_category = view.findViewById(R.id.detail_category);
 
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://www.thecocktaildb.com/api/json/v1/1/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -112,10 +105,10 @@ public class RandomFragment extends Fragment {
 
                 Picasso.get().load(response.body().getTodo().get(0).getStrDrinkThumb()).into(detail_cocktail_image);
 
-                if (response.body().getTodo().get(0).getStrAlcoholic().equals("Non alcoholic")){ //Def vert ou rouge en fonction de alcoholic
+                if (response.body().getTodo().get(0).getStrAlcoholic().equals("Non alcoholic")) { //Def vert ou rouge en fonction de alcoholic
                     detail_alcoholic_text.setTextColor(getResources().getColor(R.color.green));
                     detail_alcoholic_text.setText("✓ " + response.body().getTodo().get(0).getStrAlcoholic());
-                }else {
+                } else {
                     detail_alcoholic_text.setTextColor(getResources().getColor(R.color.red));
                     detail_alcoholic_text.setText("⚠ " + response.body().getTodo().get(0).getStrAlcoholic());
                 }
@@ -138,40 +131,38 @@ public class RandomFragment extends Fragment {
                 mesure_ingredient_7.setText(response.body().getTodo().get(0).getStrMeasure7());
                 mesure_ingredient_8.setText(response.body().getTodo().get(0).getStrMeasure8());
 
-
-                if(response.body().getTodo().get(0).getStrIngredient1() == null || response.body().getTodo().get(0).getStrIngredient1().trim().equals("")){ //pas == "" sinon ca ne fonctionne pas
+                if (response.body().getTodo().get(0).getStrIngredient1() == null || response.body().getTodo().get(0).getStrIngredient1().trim().equals("")) { //pas == "" sinon ca ne fonctionne pas
                     text_ingredient_1.setVisibility(View.INVISIBLE); //on cache le texte
                     mesure_ingredient_1.setVisibility(View.INVISIBLE);  //et la mesure forcément histoire de ne pas avoir d'espaces dans le vent
                 }
-                if(response.body().getTodo().get(0).getStrIngredient2() == null || response.body().getTodo().get(0).getStrIngredient2().trim().equals("")){ //ne pas oublier trim sinon ca detecte pas
+                if (response.body().getTodo().get(0).getStrIngredient2() == null || response.body().getTodo().get(0).getStrIngredient2().trim().equals("")) { //ne pas oublier trim sinon ca detecte pas
                     text_ingredient_2.setVisibility(View.INVISIBLE);
                     mesure_ingredient_2.setVisibility(View.INVISIBLE);
                 }
-                if(response.body().getTodo().get(0).getStrIngredient3() == null || response.body().getTodo().get(0).getStrIngredient3().trim().equals("")){ //ya des "" dans les valeurs
+                if (response.body().getTodo().get(0).getStrIngredient3() == null || response.body().getTodo().get(0).getStrIngredient3().trim().equals("")) { //ya des "" dans les valeurs
                     text_ingredient_3.setVisibility(View.INVISIBLE);
                     mesure_ingredient_3.setVisibility(View.INVISIBLE);
                 }
-                if(response.body().getTodo().get(0).getStrIngredient4() == null || response.body().getTodo().get(0).getStrIngredient4().trim().equals("")){ //ya des null dans les valeurs
+                if (response.body().getTodo().get(0).getStrIngredient4() == null || response.body().getTodo().get(0).getStrIngredient4().trim().equals("")) { //ya des null dans les valeurs
                     text_ingredient_4.setVisibility(View.INVISIBLE);
                     mesure_ingredient_4.setVisibility(View.INVISIBLE);
                 }
-                if(response.body().getTodo().get(0).getStrIngredient5() == null || response.body().getTodo().get(0).getStrIngredient5().trim().equals("")){ //ducoup faut faire les deux vérifs
+                if (response.body().getTodo().get(0).getStrIngredient5() == null || response.body().getTodo().get(0).getStrIngredient5().trim().equals("")) { //ducoup faut faire les deux vérifs
                     text_ingredient_5.setVisibility(View.INVISIBLE);
                     mesure_ingredient_5.setVisibility(View.INVISIBLE);
                 }
-                if(response.body().getTodo().get(0).getStrIngredient6() == null || response.body().getTodo().get(0).getStrIngredient6().trim().equals("")){
+                if (response.body().getTodo().get(0).getStrIngredient6() == null || response.body().getTodo().get(0).getStrIngredient6().trim().equals("")) {
                     text_ingredient_6.setVisibility(View.INVISIBLE);
                     mesure_ingredient_6.setVisibility(View.INVISIBLE);
                 }
-                if(response.body().getTodo().get(0).getStrIngredient7() == null || response.body().getTodo().get(0).getStrIngredient7().trim().equals("")){
+                if (response.body().getTodo().get(0).getStrIngredient7() == null || response.body().getTodo().get(0).getStrIngredient7().trim().equals("")) {
                     text_ingredient_7.setVisibility(View.INVISIBLE);
                     mesure_ingredient_7.setVisibility(View.INVISIBLE);
                 }
-                if(response.body().getTodo().get(0).getStrIngredient8() == null || response.body().getTodo().get(0).getStrIngredient8().trim().equals("")){
+                if (response.body().getTodo().get(0).getStrIngredient8() == null || response.body().getTodo().get(0).getStrIngredient8().trim().equals("")) {
                     text_ingredient_8.setVisibility(View.INVISIBLE);
                     mesure_ingredient_8.setVisibility(View.INVISIBLE);
                 }
-
             }
 
             @Override
@@ -183,12 +174,6 @@ public class RandomFragment extends Fragment {
     }
 
 
-
-    }
-
-
-
-
-
+}
 
 

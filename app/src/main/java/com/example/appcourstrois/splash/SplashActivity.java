@@ -28,7 +28,7 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        }, 3000); //le Delai d'affichage du splash
+        }, 3000); //le Délai d'affichage du splash
 
     }
 

@@ -53,7 +53,6 @@ public class CategoriesListAdapter extends RecyclerView.Adapter<CategoriesListAd
 
         public ViewHolder(@NonNull View itemList) {
             super(itemList);
-
             categoryNameCell = itemList.findViewById(R.id.categoryNameCell);
 
         }

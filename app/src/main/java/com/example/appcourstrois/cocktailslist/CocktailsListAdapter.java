@@ -9,12 +9,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.appcourstrois.MainActivity;
 import com.example.appcourstrois.R;
 import com.example.appcourstrois.model.Drinks;
-import com.example.appcourstrois.model.Todo;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
 
 
 public class CocktailsListAdapter extends RecyclerView.Adapter<CocktailsListAdapter.ViewHolder> {
@@ -23,12 +22,9 @@ public class CocktailsListAdapter extends RecyclerView.Adapter<CocktailsListAdap
     private CocktailsListClickListener cocktailslistListClickListener;
     ImageView categoryImageCellDetail;
 
-
-
     public CocktailsListAdapter(Drinks drink, CocktailsListClickListener cocktailslistListClickListener){
         this.drink = drink; //drink permet de savoir toutes les données dont on va se servir
         this.cocktailslistListClickListener = cocktailslistListClickListener;
-
     }
 
     @NonNull
@@ -37,24 +33,15 @@ public class CocktailsListAdapter extends RecyclerView.Adapter<CocktailsListAdap
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cocktailslist_list_cell, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         return viewHolder;
-
     }
 
     @Override
     public void onBindViewHolder(@NonNull CocktailsListAdapter.ViewHolder holder, final int position) {
 
-
         holder.categoryNameCellDetail.setText(drink.getTodo().get(position).getStrDrink());
-
-        String StringAmc = String.valueOf(drink.getTodo().get(position).getIdDrink());
-
-        holder.categoryNameCellDetailAlc.setText(StringAmc); //ICI COMMENT SET LA VALEUR AVEC STR ALC ?
-
-
-
+        String StringAmc = drink.getTodo().get(position).getStrAlcoholic();
+        holder.categoryNameCellDetailAlc.setText(StringAmc);
         Picasso.get().load(drink.getTodo().get(position).getStrDrinkThumb()).into(categoryImageCellDetail);
-
-
         holder.categoryNameCellDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,15 +60,12 @@ public class CocktailsListAdapter extends RecyclerView.Adapter<CocktailsListAdap
 
         TextView categoryNameCellDetail, categoryNameCellDetailAlc;
 
-
-
         public ViewHolder(@NonNull View itemList) {
             super(itemList);
-
             categoryNameCellDetail = itemList.findViewById(R.id.categoryNameCellDetail);
             categoryNameCellDetailAlc = itemList.findViewById(R.id.categoryNameCellDetailAlc);
             categoryImageCellDetail = itemList.findViewById(R.id.categoryImageCellDetail);
-
         }
+
     }
 }

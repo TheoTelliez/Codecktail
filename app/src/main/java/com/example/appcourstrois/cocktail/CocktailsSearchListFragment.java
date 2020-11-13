@@ -1,4 +1,4 @@
-package com.example.appcourstrois.cocktailslist;
+package com.example.appcourstrois.cocktail;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,13 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appcourstrois.MainActivity;
 import com.example.appcourstrois.R;
-import com.example.appcourstrois.categories.CategoriesListAdapter;
-import com.example.appcourstrois.model.Todo;
+import com.example.appcourstrois.cocktailslist.CocktailsListAdapter;
+import com.example.appcourstrois.cocktailslist.CocktailsListClickListener;
 import com.example.appcourstrois.model.Drinks;
+import com.example.appcourstrois.model.Todo;
 import com.example.appcourstrois.webservices.WebServicesInterface;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,29 +27,29 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 
-public class CocktailsListFragment extends Fragment implements CocktailsListClickListener {
+public class CocktailsSearchListFragment extends Fragment implements CocktailsListClickListener {
 
     private RecyclerView cocktailsListRecyclerView;
     private RecyclerView.Adapter cocktailsListAdapter;
+    private RecyclerView.Adapter cocktailsListAdapterSearch;
     private RecyclerView.LayoutManager cocktailsListLayoutManager;
-    private String strCategory;
-    public CocktailsListFragment(String strCategory) {
-        this.strCategory = strCategory;
+
+    private String strName;
+
+    public CocktailsSearchListFragment(String strName) {
+        this.strName = strName;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.cocktailslist_list, null); //le 2e paramètre sera toujours null tandis que le premier représentera l’id de notre layout de fragment (ici : R.layout.fragment_random).
+
     }
 
 
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
-
-        TextView noResp;
-        noResp = view.findViewById(R.id.noResp);
-        noResp.setVisibility(View.INVISIBLE);
 
         super.onViewCreated(view, savedInstanceState);
         cocktailsListRecyclerView = view.findViewById(R.id.cocktailsListDetailRecyclerView);
@@ -65,32 +63,32 @@ public class CocktailsListFragment extends Fragment implements CocktailsListClic
                 .build();
 
         final WebServicesInterface webServicesInterface = retrofit.create(WebServicesInterface.class);
+        final Call<Drinks> callGetTodoByListOfDrinksByCategories = webServicesInterface.getTodoByName(this.strName);
 
-        final Call<Drinks> callGetTodoByListOfDrinksByCategories = webServicesInterface.getListDrinksByCategoryCustom(this.strCategory);
         callGetTodoByListOfDrinksByCategories.enqueue(new Callback<Drinks>() {
+
             @Override
             public void onResponse(Call<Drinks> call, Response<Drinks> response) {
+                if (response.body().getTodo() == null) {
+                    System.out.println("Aucune réponse");
 
-                for (int cocktailNb = 1; cocktailNb <= response.body().getTodo().size() - 1; cocktailNb++) {
-                    int comy = response.body().getTodo().get(cocktailNb).getIdDrink();
+                    TextView noResp;
+                    noResp = view.findViewById(R.id.noResp);
+                    noResp.setVisibility(View.VISIBLE);
 
-                    Call<Drinks> callGetTodoById = webServicesInterface.getTodoById(String.valueOf(comy));
+                    return;
 
-                    callGetTodoById.enqueue(new Callback<Drinks>() {
-                        @Override
-                        public void onResponse(Call<Drinks> call, Response<Drinks> response) {
-                            //System.out.println("Test du double appell " + response.body().getTodo().get(0).getStrAlcoholic());
-                            //cocktailsListAdapter = new CocktailsListAdapter(response.body(), (MainActivity) getActivity());
-                        }
+                } else
+                    System.out.println("Une réponse");
+                    System.out.println(strName);
 
-                        @Override
-                        public void onFailure(Call<Drinks> call, Throwable t) {
-                            System.out.println("Echec du chargement de Codecktail");
-                        }
-                    });
-                }
-                cocktailsListAdapter = new CocktailsListAdapter(response.body(), (MainActivity) getActivity());
-                cocktailsListRecyclerView.setAdapter(cocktailsListAdapter);
+                    TextView noResp;
+                    noResp = view.findViewById(R.id.noResp);
+                    noResp.setVisibility(View.INVISIBLE);
+
+                    cocktailsListAdapter = new CocktailsListAdapter(response.body(), (MainActivity)getActivity());
+                    cocktailsListRecyclerView.setAdapter(cocktailsListAdapter);
+
             }
 
             @Override
@@ -98,15 +96,14 @@ public class CocktailsListFragment extends Fragment implements CocktailsListClic
                 System.out.println("Echec du chargement de Codecktail");
             }
         });
-
-
     };
+
 
     @Override
     public void onCocktailListClick(Todo todo) {
         System.out.println(todo.getIdDrink());
-    }
 
+    }
 
 }
 

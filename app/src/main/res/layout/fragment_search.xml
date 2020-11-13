@@ -7,28 +7,30 @@
     android:layout_height="match_parent">
 
 
-    <TextView
-        android:id="@+id/voiciMonTexte"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Voici ma page search"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <EditText
-        android:id="@+id/editTextTextPersonName2"
-        android:layout_width="409dp"
+        android:id="@+id/inputRechercher"
+        android:layout_width="match_parent"
         android:layout_height="55dp"
         android:ems="10"
-        android:hint="Search..."
+        android:hint="Rechercher..."
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.009" />
+
+    <Button
+        android:id="@+id/btRechercher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rechercher"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputRechercher"
+        app:layout_constraintVertical_bias="0.154" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

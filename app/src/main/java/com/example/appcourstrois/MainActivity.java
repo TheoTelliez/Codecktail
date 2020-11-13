@@ -3,22 +3,27 @@ package com.example.appcourstrois;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.appcourstrois.categories.CategoriesListFragment;
 import com.example.appcourstrois.categories.CategoriesListClickListener;
+import com.example.appcourstrois.cocktail.CocktailsSearchListFragment;
 import com.example.appcourstrois.cocktail.LookupFragment;
 import com.example.appcourstrois.cocktail.RandomFragment;
 import com.example.appcourstrois.cocktail.SearchFragment;
+import com.example.appcourstrois.cocktail.SearchListClickListener;
 import com.example.appcourstrois.cocktailslist.CocktailsListClickListener;
 import com.example.appcourstrois.cocktailslist.CocktailsListFragment;
 import com.example.appcourstrois.model.Todo;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, CategoriesListClickListener, CocktailsListClickListener {
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, CategoriesListClickListener, CocktailsListClickListener, SearchListClickListener {
 
 
     Fragment randomFragment;
@@ -28,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     private CategoriesListClickListener categoriesListClickListener;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         randomFragment = new RandomFragment();
         listFragment = new CategoriesListFragment();
-        searchFragment = new SearchFragment();
+        searchFragment = new SearchFragment(this);
 
         loadFragment(randomFragment); //sert à dire que le fragment par défaut quand on lance l'appli c'est celui de texte
 
@@ -78,31 +84,25 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public void onCategoryListClick(Todo todo) {
-
         loadFragment(new CocktailsListFragment(todo.getStrCategory()));
-
         System.out.println(todo.getStrCategory()); //C'est qui qui faut passer le param
-        System.out.println(todo.getStrAlcoholic());
-
-
+        System.out.println(todo.getStrAlcoholic()); //C'est qui que ca marche pas
     }
-
-
-
 
 
     @Override
     public void onCocktailListClick(Todo todo) {
-
         loadFragment(new LookupFragment(todo.getIdDrink()));
-
         System.out.println(todo.getIdDrink());
-
-
     }
 
 
-
+    @Override
+    public void onSearchListClick(String s) {
+        String motcle = s;
+        System.out.println();
+        loadFragment(new CocktailsSearchListFragment(motcle));
+    }
 
 
 }

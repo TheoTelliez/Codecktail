@@ -41,10 +41,8 @@ public class CategoriesListFragment extends Fragment implements CategoriesListCl
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
 
-
         super.onViewCreated(view, savedInstanceState);
         categoryListRecyclerView = view.findViewById(R.id.categoryListRecyclerView);
-
         categoryListRecyclerView.setHasFixedSize(true);
         categoryListLayoutManager = new LinearLayoutManager(getContext());
         categoryListRecyclerView.setLayoutManager(categoryListLayoutManager);
@@ -62,10 +60,8 @@ public class CategoriesListFragment extends Fragment implements CategoriesListCl
         callGetTodoByCategory.enqueue(new Callback<Drinks>() {
             @Override
             public void onResponse(Call<Drinks> call, Response<Drinks> response) {
-
                 drinksListAdapter = new CategoriesListAdapter(response.body(), (MainActivity)getActivity()); //Ici c'est tricky :(
                 categoryListRecyclerView.setAdapter(drinksListAdapter);
-
             }
 
             @Override
@@ -73,27 +69,16 @@ public class CategoriesListFragment extends Fragment implements CategoriesListCl
                 System.out.println("Echec du chargement de Codecktail");
             }
         });
-
-
-
     };
 
     @Override
     public void onCategoryListClick(Todo todo) {
-
-        //Tout ça c'est plus actif parce que c'est dans le mainacivity
         System.out.println(todo.getStrCategory());
         Intent drinkDetailListingActivityIntent = new Intent(getActivity(), CocktailsListFragment.class);
-
         String s = todo.getStrCategory();
-
         drinkDetailListingActivityIntent.putExtra("nameDuStrCategory", s);
-
-        //Et tac on démarre l'activity
         startActivity(drinkDetailListingActivityIntent);
-
     }
-
 
 }
 
